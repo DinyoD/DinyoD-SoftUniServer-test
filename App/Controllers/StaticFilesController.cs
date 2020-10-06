@@ -1,13 +1,15 @@
 ﻿using SUS.HTTP;
 using SUS.MvcFramework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AppTest.Controllers
 {
     public class StaticFilesController : Controller
     {
+        public HttpResponse Favicon(HttpRequest request)
+        {
+            return this.File("wwwroot/favicon.ico", "image/vnd.microsoft.icon");
+        }
+
         internal HttpResponse BootstrapCss(HttpRequest request)
         {
             return this.File("wwwroot/css/bootstrap.min.css", "text/css");
@@ -28,9 +30,5 @@ namespace AppTest.Controllers
             return this.File("wwwroot/js/custom.js", "text/javascript");
         }
 
-        public HttpResponse Favicon(HttpRequest request)
-        {
-            return this.File("wwwroot/favicon.ico", "image/vnd.microsoft.icon");
-        }
     }
 }
