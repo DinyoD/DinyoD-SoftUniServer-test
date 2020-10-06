@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kY3bStjKBnOvTERwixT1fh212rDZW5M2ni58AJJCRLUT2FDCdasiVnfchIdH2keNoIZMZ+aNehT5YNt+UgBbKg==",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\App.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dinyo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
+    "C:\\Users\\Dinyo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.0.3\\microsoft.netcore.app.host.win-x64.3.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
