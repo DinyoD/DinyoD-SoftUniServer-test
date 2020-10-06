@@ -11,6 +11,19 @@
         "runtime": {
           "bin/placeholder/SUS.HTTP.dll": {}
         }
+      },
+      "SUS.MvcFramework/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "SUS.HTTP": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SUS.MvcFramework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SUS.MvcFramework.dll": {}
+        }
       }
     }
   },
@@ -19,11 +32,17 @@
       "type": "project",
       "path": "../SUS.HTTP/SUS.HTTP.csproj",
       "msbuildProject": "../SUS.HTTP/SUS.HTTP.csproj"
+    },
+    "SUS.MvcFramework/1.0.0": {
+      "type": "project",
+      "path": "../SUS.MvcFramework/SUS.MvcFramework.csproj",
+      "msbuildProject": "../SUS.MvcFramework/SUS.MvcFramework.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
-      "SUS.HTTP >= 1.0.0"
+      "SUS.HTTP >= 1.0.0",
+      "SUS.MvcFramework >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -33,9 +52,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\App.csproj",
-      "projectName": "App",
-      "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\App.csproj",
+      "projectUniqueName": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\AppTest.csproj",
+      "projectName": "AppTest",
+      "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\AppTest.csproj",
       "packagesPath": "C:\\Users\\Dinyo\\.nuget\\packages\\",
       "outputPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\App\\obj\\",
       "projectStyle": "PackageReference",
@@ -58,6 +77,9 @@
           "projectReferences": {
             "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.HTTP\\SUS.HTTP.csproj": {
               "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.HTTP\\SUS.HTTP.csproj"
+            },
+            "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj": {
+              "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj"
             }
           }
         }

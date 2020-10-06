@@ -33,6 +33,7 @@ namespace SUS.HTTP
                 if (string.IsNullOrEmpty(line))
                 {
                     isHeaderLine = false;
+                    //continue;
                 }
 
                 if (isHeaderLine)

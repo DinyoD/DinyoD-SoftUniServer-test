@@ -13,7 +13,7 @@ namespace SUS.HTTP
 
         List<Route> routeTable;
 
-        public void AddRoute(List<Route> routeTable)
+        public HttpServer(List<Route> routeTable)
         {
             this.routeTable = routeTable;
         }
