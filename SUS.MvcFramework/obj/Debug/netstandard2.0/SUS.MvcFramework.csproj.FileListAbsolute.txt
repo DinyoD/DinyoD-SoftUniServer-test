@@ -6,7 +6,6 @@ C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\bin\Debug\netstandard2
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.csprojAssemblyReference.cache
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.AssemblyInfoInputs.cache
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.AssemblyInfo.cs
-C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.csproj.CoreCompileInputs.cache
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.csproj.CopyComplete
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.dll
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.MvcFramework\obj\Debug\netstandard2.0\SUS.MvcFramework.pdb
