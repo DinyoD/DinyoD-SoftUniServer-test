@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "odPTl5LaUG79d+OOTyTiA9aFtiqeP2CNr2g3Fo1Eq9i944OkgE7IsYLD/Txuk6kEElpyArGtxWaWqPOEEbMRbA==",
+  "dgSpecHash": "ewg8s3gKDQ6lg9oq7RZeIZXyqSZQpfcBzT47Lsh07HYN27KYWiH35yewTtYsQ2Xt6ch9ttcT+nUePw0n/QhmzQ==",
   "success": true,
   "projectFilePath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Dinyo\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.collections.immutable\\1.5.0\\system.collections.immutable.1.5.0.nupkg.sha512",
+    "C:\\Users\\Dinyo\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
     "C:\\Users\\Dinyo\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Dinyo\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
