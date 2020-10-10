@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ewg8s3gKDQ6lg9oq7RZeIZXyqSZQpfcBzT47Lsh07HYN27KYWiH35yewTtYsQ2Xt6ch9ttcT+nUePw0n/QhmzQ==",
+  "dgSpecHash": "DMz5r41eXJktg1EoYB7WPI1p/Qan8kbT+VxurRMknkF0QHL4GfVXdxE+1mEgFkPHHiZ8i2pHDbGne8iEEO0MSw==",
   "success": true,
-  "projectFilePath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
+  "projectFilePath": "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dinyo\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.0.0\\microsoft.codeanalysis.analyzers.3.0.0.nupkg.sha512",
     "C:\\Users\\Dinyo\\.nuget\\packages\\microsoft.codeanalysis.common\\3.7.0\\microsoft.codeanalysis.common.3.7.0.nupkg.sha512",
