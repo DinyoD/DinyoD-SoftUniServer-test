@@ -6,3 +6,4 @@ C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.HTTP\obj\Debug\netstandard2.0\SUS.H
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.HTTP\obj\Debug\netstandard2.0\SUS.HTTP.csproj.CoreCompileInputs.cache
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.HTTP\obj\Debug\netstandard2.0\SUS.HTTP.dll
 C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.HTTP\obj\Debug\netstandard2.0\SUS.HTTP.pdb
+C:\Dev\C# Web Basics\SUS\SUS_D.D.Edition\SUS.HTTP\obj\Debug\netstandard2.0\SUS.HTTP.csprojAssemblyReference.cache
