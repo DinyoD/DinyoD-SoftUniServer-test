@@ -938,11 +938,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
+      "projectUniqueName": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
       "projectName": "SUS.MvcFramework",
-      "projectPath": "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
+      "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\SUS.MvcFramework.csproj",
       "packagesPath": "C:\\Users\\Dinyo\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.MvcFramework\\obj\\",
+      "outputPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.MvcFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -961,8 +961,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.HTTP\\SUS.HTTP.csproj": {
-              "projectPath": "C:\\Dev\\C# Web Basics\\DinyoD-CSharp-SogtUniServer-test\\SUS.HTTP\\SUS.HTTP.csproj"
+            "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.HTTP\\SUS.HTTP.csproj": {
+              "projectPath": "C:\\Dev\\C# Web Basics\\SUS\\SUS_D.D.Edition\\SUS.HTTP\\SUS.HTTP.csproj"
             }
           }
         }
