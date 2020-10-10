@@ -5,17 +5,18 @@ namespace AppTest.Controllers
 {
     public class UsersController : Controller
     {
-        internal HttpResponse Login(HttpRequest request)
+        public HttpResponse Login()
         {
             return this.View();
         }
 
-        internal HttpResponse DoLogin(HttpRequest request)
+        [HttpPost]
+        public HttpResponse DoLogin()
         {
             return this.Redirect("/");
         }
 
-        internal HttpResponse Register(HttpRequest request)
+        public HttpResponse Register()
         {
             return this.View();
         }

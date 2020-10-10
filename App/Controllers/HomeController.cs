@@ -5,8 +5,8 @@ namespace AppTest.Controllers
 {
     public class HomeController : Controller
     {
-
-        public HttpResponse Index(HttpRequest request)
+        [HttpGet("/")]
+        public HttpResponse Index()
         {
             return this.View();
         }

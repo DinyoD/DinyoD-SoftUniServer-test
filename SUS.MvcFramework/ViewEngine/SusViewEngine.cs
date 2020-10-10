@@ -1,14 +1,14 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
+﻿using System;
 using System.IO;
+using System.Text;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace SUS.MvcFramework.ViewEngine
 {
@@ -20,7 +20,7 @@ namespace SUS.MvcFramework.ViewEngine
     {
         public string GetHtml(string templateCode, object viewModel)
         {
-            string csharpCode = GenerateCsharpFromTemplate(templateCode, viewModel);
+            string csharpCode = GenerateCSharpFromTemplate(templateCode, viewModel);
 
             IView executableObject = GenerateExecutableCode(csharpCode, viewModel);
 
@@ -29,8 +29,7 @@ namespace SUS.MvcFramework.ViewEngine
             return html;
         }
 
-
-        private string GenerateCsharpFromTemplate(string templateCode, object viewModel)
+        private string GenerateCSharpFromTemplate(string templateCode, object viewModel)
         {
             string typeOfModel = "object";
             if (viewModel != null)
@@ -40,8 +39,8 @@ namespace SUS.MvcFramework.ViewEngine
                     var modelName = viewModel.GetType().FullName;
                     var modelArguments = viewModel.GetType().GenericTypeArguments;
 
-                    typeOfModel = modelName.Substring(0, modelName.IndexOf('`')) 
-                        + "<" + string.Join(", ", modelArguments.Select(x=>x.FullName)) + ">";
+                    typeOfModel = modelName.Substring(0, modelName.IndexOf('`'))
+                        + "<" + string.Join(", ", modelArguments.Select(x => x.FullName)) + ">";
                 }
                 else
                 {
@@ -50,40 +49,45 @@ namespace SUS.MvcFramework.ViewEngine
             }
 
             string csharpCode = @"
-using System;
-using System.Text;
-using System.Linq;
-using System.Collections.Generic;
-using SUS.MvcFramework.ViewEngine;
+        using System;
+        using System.Text;
+        using System.Linq;
+        using System.Collections.Generic;
+        using SUS.MvcFramework.ViewEngine;
 
-namespace ViewNamespace
-{
-    public class ViewClass : IView
-    {
-        var Model = viewModel as " + typeOfModel + @";
-        var html = new StringBuilder();
-        " + GetMetodBody(templateCode) + @"
-        return html.ToString();
-    }
-}
-";
+        namespace ViewNamespace
+        {
+            public class ViewClass : IView
+            {
+                public string ExecuteTemplate(object viewModel)
+                {
+                    var Model = viewModel as " + typeOfModel + @";
+                    var html = new StringBuilder();
+                    " + GetMethodBody(templateCode) + @"
+                    return html.ToString();
+                }           
+            }
+        }
+        ";
             return csharpCode;
         }
 
-        private string GetMetodBody(string templateCode)
+
+        private string GetMethodBody(string templateCode)
         {
-            Regex csharpCodeRegex = new Regex(@"[^\""\s&\`\<]+");
-            var supportedOperators = new List<string> { "for", "if", "else", "foreach", "while"};
+            Regex csharpCodeRegex = new Regex(@"[^\""\s&\'\<]+");
+
+            var supportedOperators = new List<string> { "for", "if", "else", "foreach", "while" };
 
             var csharpCode = new StringBuilder();
             StringReader sr = new StringReader(templateCode);
             string line;
             while ((line = sr.ReadLine()) != null)
             {
-                if (supportedOperators.Any(x=> line.TrimStart().StartsWith("@" + x)))
+                if (supportedOperators.Any(x => line.TrimStart().StartsWith("@" + x)))
                 {
                     var indexOfAtSign = line.IndexOf("@");
-                    line.Remove(indexOfAtSign, 1);
+                    line = line.Remove(indexOfAtSign, 1);
                     csharpCode.AppendLine(line);
                 }
                 else if (line.TrimStart().StartsWith("{") || line.TrimStart().StartsWith("}"))
@@ -99,7 +103,7 @@ namespace ViewNamespace
                         var indexOfAtSign = line.IndexOf("@");
                         var htmlBeforeAtSign = line.Substring(0, indexOfAtSign);
 
-                        csharpCode.Append(htmlBeforeAtSign.Replace("\"","\"\"") + "\" +");
+                        csharpCode.Append(htmlBeforeAtSign.Replace("\"", "\"\"") + "\" +");
 
                         var lineAfterAtSign = line.Substring(indexOfAtSign + 1);
 
@@ -107,7 +111,7 @@ namespace ViewNamespace
                         csharpCode.Append(code + " + @\"");
 
                         line = lineAfterAtSign.Substring(code.Length);
-                    } 
+                    }
 
                     csharpCode.AppendLine(line.Replace("\"", "\"\"") + "\");");
                 }
@@ -115,6 +119,7 @@ namespace ViewNamespace
 
             return csharpCode.ToString();
         }
+
 
         private IView GenerateExecutableCode(string csharpCode, object viewModel)
         {
@@ -127,32 +132,70 @@ namespace ViewNamespace
                 compileResult = compileResult.AddReferences(MetadataReference.CreateFromFile(viewModel.GetType().Assembly.Location));
             }
 
-            var libraries = Assembly.Load(new AssemblyName("netstandart")).GetReferencedAssemblies();
+            var libraries = Assembly.Load(new AssemblyName("netstandard")).GetReferencedAssemblies();
+
             foreach (var library in libraries)
             {
-                compileResult.AddReferences(MetadataReference.CreateFromFile(Assembly.Load(library).Location));
+                compileResult = compileResult
+                    .AddReferences(MetadataReference.CreateFromFile(Assembly.Load(library).Location));
             }
 
-            compileResult.AddSyntaxTrees(SyntaxFactory.ParseSyntaxTree(csharpCode));
+            compileResult = compileResult.AddSyntaxTrees(SyntaxFactory.ParseSyntaxTree(csharpCode));
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                var result = compileResult.Emit(memoryStream);
+                EmitResult result = compileResult.Emit(memoryStream);
+                if (!result.Success)
+                {
+                    return new ErrorView(result.Diagnostics
+                        .Where(x => x.Severity == DiagnosticSeverity.Error)
+                        .Select(x => x.GetMessage()), csharpCode);
+                }
 
-                if (result.Success)
+                try
                 {
                     memoryStream.Seek(0, SeekOrigin.Begin);
                     var byteAssembly = memoryStream.ToArray();
                     var assembly = Assembly.Load(byteAssembly);
                     var viewType = assembly.GetType("ViewNamespace.ViewClass");
-
                     var instance = Activator.CreateInstance(viewType);
+                    return (instance as IView)
+                        ?? new ErrorView(new List<string> { "Instance is null!" }, csharpCode);
+                }
+                catch (Exception ex)
+                {
+                    return new ErrorView(new List<string> { ex.ToString() }, csharpCode);
+                }
+            }
 
-                    return (instance as IView) ?? new ErrorView(new List<string> { "Instance is null" }, csharpCode);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                EmitResult result = compileResult.Emit(memoryStream);
+
+                if (result.Success)
+                {
+                    try
+                    {
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        var byteAssembly = memoryStream.ToArray();
+                        var assembly = Assembly.Load(byteAssembly);
+                        var viewType = assembly.GetType("ViewNamespace.ViewClas");
+
+                        var instance = Activator.CreateInstance(viewType);
+
+                        return (instance as IView) ?? new ErrorView(new List<string> { "Instance is null" }, csharpCode);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return new ErrorView(new List<string> { ex.ToString() }, csharpCode);
+                    }
                 }
                 else
                 {
-
+                    return new ErrorView(result.Diagnostics
+                        .Where(x => x.Severity == DiagnosticSeverity.Error)
+                        .Select(x => x.GetMessage()), csharpCode);
                 }
             };
         }

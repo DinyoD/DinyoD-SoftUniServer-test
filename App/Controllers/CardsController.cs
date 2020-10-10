@@ -5,17 +5,17 @@ namespace AppTest.Controllers
 {
     public class CardsController : Controller
     {
-        internal HttpResponse All(HttpRequest request)
+        public HttpResponse All()
         {
             return this.View();
         }
 
-        internal HttpResponse Collection(HttpRequest request)
+        public HttpResponse Collection()
         {
             return this.View();
         }
 
-        internal HttpResponse Add(HttpRequest request)
+        public HttpResponse Add()
         {
             return this.View();
         }

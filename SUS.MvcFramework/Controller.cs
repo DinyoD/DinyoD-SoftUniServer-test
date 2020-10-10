@@ -2,18 +2,33 @@
 using System.Runtime.CompilerServices;
 
 using SUS.HTTP;
+using SUS.MvcFramework.ViewEngine;
 
 namespace SUS.MvcFramework
 {
     public abstract class Controller
     {
-        public HttpResponse View([CallerMemberName]string viewPath = null)
+
+        private SusViewEngine viewEngine;
+
+        public Controller()
+        {
+            this.viewEngine = new SusViewEngine();
+        }
+
+        public HttpRequest Request { get; set; }
+
+        public HttpResponse View(object viewModel = null, [CallerMemberName] string viewPath = null)
         {
             var layout = System.IO.File.ReadAllText("Views/Shared/_Layout.cshtml");
+            layout = layout.Replace("@RenderBody()", "__VIEW_GOES_HERE__");
+            layout = this.viewEngine.GetHtml(layout, viewModel);
 
             var viewContent = System.IO.File.ReadAllText("Views/" + this.GetType().Name.Replace("Controller", string.Empty) + "/" + viewPath + ".cshtml");
 
-            var responseHtml = layout.Replace("@RenderBody()", viewContent);
+            viewContent = this.viewEngine.GetHtml(viewContent, viewModel);
+
+            var responseHtml = layout.Replace("__VIEW_GOES_HERE__", viewContent);
 
             var responseBodyBytes = Encoding.UTF8.GetBytes(responseHtml);
             var response = new HttpResponse("text/html", responseBodyBytes);
@@ -37,36 +52,5 @@ namespace SUS.MvcFramework
 
             return response;
         }
-
-
-
-        //static HttpResponse HomePage(HttpRequest request)
-        //{
-        //    var responseHtml = "<h1>Home Page</h1>";
-        //    var responseBodyBytes = Encoding.UTF8.GetBytes(responseHtml);
-
-        //    var response = new HttpResponse("text/html", responseBodyBytes);
-        //    return response;
-        //}
-
-        //static HttpResponse About(HttpRequest request)
-        //{
-        //    var responseHtml = "<h1>About..</h1>";
-
-        //    var responseBodyBytes = Encoding.UTF8.GetBytes(responseHtml);
-
-        //    var response = new HttpResponse("text/html", responseBodyBytes);
-
-        //    return response;
-        //}
-
-        //static HttpResponse Favicon(HttpRequest request)
-        //{
-        //    var fileBytes = System.IO.File.ReadAllBytes("wwwroot/favicon.ico");
-
-        //    var response = new HttpResponse("image/vnd.microsoft.icon", fileBytes);
-
-        //    return response;
-        //}
     }
 }

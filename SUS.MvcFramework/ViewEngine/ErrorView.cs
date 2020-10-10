@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SUS.MvcFramework.ViewEngine
@@ -8,7 +9,7 @@ namespace SUS.MvcFramework.ViewEngine
         private IEnumerable<string> errors;
         private string csharpCode;
 
-        public ErrorView(List<string> errors, string csharpCode)
+        public ErrorView(IEnumerable<string> errors, string csharpCode)
         {
             this.errors = errors;
             this.csharpCode = csharpCode;
@@ -18,7 +19,7 @@ namespace SUS.MvcFramework.ViewEngine
         {
             var html = new StringBuilder();
 
-            html.AppendLine($"<h1> View compile {} errors: </h1><ul>");
+            html.AppendLine($"<h1> View compile {this.errors.Count()} errors: </h1><ul>");
 
             foreach (var error in this.errors)
             {
