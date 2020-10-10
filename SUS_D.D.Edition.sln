@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppTest", "App\AppTest.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SUS.HTTP", "SUS.HTTP\SUS.HTTP.csproj", "{E5B71A9B-3188-471E-8896-5E3D0E3D53DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUS.MvcFramework", "SUS.MvcFramework\SUS.MvcFramework.csproj", "{9CD91C50-71B2-4ED4-A593-AEE644C329A9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{8DA8F60D-80D5-4539-B1FF-2F4C11D6F595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SUS.MvcFramework", "SUS.MvcFramework\SUS.MvcFramework.csproj", "{9CD91C50-71B2-4ED4-A593-AEE644C329A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +30,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5E654C15-A0C3-42D7-8345-3D9B87B9BA15} = {8DA8F60D-80D5-4539-B1FF-2F4C11D6F595}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E658206-EB4E-4344-8C04-2FE55043DF1A}
