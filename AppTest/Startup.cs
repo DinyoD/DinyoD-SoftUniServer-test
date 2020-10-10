@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
+using AppTest.Controllers;
 using SUS.HTTP;
 using SUS.MvcFramework;
 
-namespace App
+namespace AppTest
 {
     public class Startup : IMvcAplication
     {

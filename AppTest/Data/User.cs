@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace App.Data
+namespace AppTest.Data
 {
     public class User : UserIdentity
     {

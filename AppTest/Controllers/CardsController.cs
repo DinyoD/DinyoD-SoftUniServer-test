@@ -1,7 +1,7 @@
 ﻿using SUS.HTTP;
 using SUS.MvcFramework;
 
-namespace App.Controllers
+namespace AppTest.Controllers
 {
     public class CardsController : Controller
     {
