@@ -10,6 +10,8 @@ namespace SUS.HTTP
 
         public const string NewLine = "\r\n";
 
-        public const string REquestCookieHeader = "Cookie";
+        public const string RequestCookieHeader = "Cookie";
+
+        public const string SessionCookieName = "SUS_SID";
     }
 }

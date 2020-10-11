@@ -86,8 +86,17 @@ namespace SUS.HTTP
                         response = new HttpResponse("text/html", new byte[0], HttpStatusCode.NotFound);
                     }
 
-                    response.ResponseCookies.Add(new ResponseCookie("sid", Guid.NewGuid().ToString()) { HttpOnly = true, MaxAge = 30*24*60*60});
                     response.Headers.Add(new Header("Server", "SUS_D.D. Server 1.0"));
+
+                    //response.ResponseCookies.Add(new ResponseCookie("sid", Guid.NewGuid().ToString()) { HttpOnly = true, MaxAge = 30*24*60*60});
+
+                    var sessionCookie = request.Cookies.FirstOrDefault(x=>x.Name == HttpConstants.SessionCookieName);
+                    if (sessionCookie != null)
+                    {
+                        var responseSessionCookie = new ResponseCookie(sessionCookie.Name, sessionCookie.Value);
+                        responseSessionCookie.Path = "/";
+                        response.ResponseCookies.Add(responseSessionCookie);
+                    }
 
                     var responseHeaderBytes = Encoding.UTF8.GetBytes(response.ToString());
 
