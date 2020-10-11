@@ -20,7 +20,7 @@ namespace App.Data
             if (!optionsBuilder.IsConfigured)
             {
                 
-                optionsBuilder.UseSqlServer("Server=.;Database=BattleCards;Integrated Security=true;");
+                optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BattleCards;Integrated Security=true;");
             }
         }
 

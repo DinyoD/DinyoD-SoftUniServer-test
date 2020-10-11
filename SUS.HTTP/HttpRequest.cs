@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace SUS.HTTP
@@ -12,6 +13,7 @@ namespace SUS.HTTP
         {
             this.Headers = new List<Header>();
             this.Cookies = new List<Cookie>();
+            this.FormData = new Dictionary<string, string>();
 
             var lines = request.Split(new string[] { HttpConstants.NewLine }, StringSplitOptions.None);
             var firstLine = lines[0];
@@ -46,7 +48,20 @@ namespace SUS.HTTP
                 }
             }
 
-            this.Body = bodySb.ToString();
+            this.Body = bodySb.ToString().TrimEnd().TrimStart();
+
+            if (this.Method == HttpMethod.Post)
+            {
+                var parameters = this.Body.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var param in parameters)
+                {
+                    var paramParts = param.Split('=');
+                    var name = paramParts[0];
+                    var value = WebUtility.UrlDecode(paramParts[1]);
+
+                    this.FormData.Add(name, value);
+                }
+            }
 
             if (this.Headers.Any(x=>x.Name == HttpConstants.REquestCookieHeader))
             {
@@ -68,6 +83,8 @@ namespace SUS.HTTP
         public ICollection<Header> Headers { get; set; }
 
         public ICollection<Cookie> Cookies { get; set; }
+
+        public Dictionary<string, string> FormData { get; set; }
 
         public string Body { get; set; }
     }
