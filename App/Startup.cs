@@ -8,8 +8,9 @@ namespace App
 {
     public class Startup : IMvcAplication
     {
-        public void ConfigureServices()
+        public void ConfigureServices(IServiceCollection serviceCollection)
         {
+
         }
 
         public void Configure(List<Route> routeTable)

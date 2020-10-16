@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
+using System.Linq;
 using System.Text;
+using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SUS.HTTP
 {
@@ -20,12 +20,12 @@ namespace SUS.HTTP
 
         public async Task StartAsync(int port)
         {
-            TcpListener tcp = new TcpListener(IPAddress.Loopback, port);
-            tcp.Start();
+            TcpListener tcpListener = new TcpListener(IPAddress.Loopback, port);
+            tcpListener.Start();
 
             while (true)
             {
-                TcpClient tcpClient = await tcp.AcceptTcpClientAsync();
+                TcpClient tcpClient = await tcpListener.AcceptTcpClientAsync();
 
                 ProcessClientAsync(tcpClient);
             }
@@ -52,7 +52,7 @@ namespace SUS.HTTP
 
                         position += count;
 
-                        if (count< buffer.Length)
+                        if (count < buffer.Length)
                         {
                             var partialBuffer = new byte[count];
                             Array.Copy(buffer, partialBuffer, count);
@@ -76,7 +76,8 @@ namespace SUS.HTTP
 
                     HttpResponse response;
 
-                    var route = this.routeTable.FirstOrDefault(x=>string.Compare(x.Path,request.Path, true)==0 && x.Method == request.Method);
+                    var route = this.routeTable.FirstOrDefault(x=>string.Compare(x.Path,request.Path, true)==0 
+                                                                && x.Method == request.Method);
                     if (route != null)
                     {
                         response = route.Action(request);
@@ -88,27 +89,28 @@ namespace SUS.HTTP
 
                     response.Headers.Add(new Header("Server", "SUS_D.D. Server 1.0"));
 
-                    //response.ResponseCookies.Add(new ResponseCookie("sid", Guid.NewGuid().ToString()) { HttpOnly = true, MaxAge = 30*24*60*60});
-
                     var sessionCookie = request.Cookies.FirstOrDefault(x=>x.Name == HttpConstants.SessionCookieName);
                     if (sessionCookie != null)
                     {
                         var responseSessionCookie = new ResponseCookie(sessionCookie.Name, sessionCookie.Value);
                         responseSessionCookie.Path = "/";
-                        response.ResponseCookies.Add(responseSessionCookie);
+                        response.Cookies.Add(responseSessionCookie);
                     }
 
                     var responseHeaderBytes = Encoding.UTF8.GetBytes(response.ToString());
 
                     await stream.WriteAsync(responseHeaderBytes, 0, responseHeaderBytes.Length);
-                    await stream.WriteAsync(response.Body, 0, response.Body.Length);
+
+                    if (response.Body != null)
+                    {
+                        await stream.WriteAsync(response.Body, 0, response.Body.Length);
+                    }
                 }
 
                 tcpClient.Close();
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e.Message);
             }
         }

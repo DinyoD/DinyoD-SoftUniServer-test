@@ -18,13 +18,13 @@ namespace SUS.MvcFramework.ViewEngine
     /// </summary>
     public class SusViewEngine : IViewEngine
     {
-        public string GetHtml(string templateCode, object viewModel)
+        public string GetHtml(string templateCode, object viewModel, string user)
         {
             string csharpCode = GenerateCSharpFromTemplate(templateCode, viewModel);
 
             IView executableObject = GenerateExecutableCode(csharpCode, viewModel);
 
-            string html = executableObject.ExecuteTemplate(viewModel);
+            string html = executableObject.ExecuteTemplate(viewModel, user);
 
             return html;
         }

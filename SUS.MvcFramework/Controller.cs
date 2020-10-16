@@ -8,7 +8,7 @@ namespace SUS.MvcFramework
 {
     public abstract class Controller
     {
-
+        private const string UserSessionName = "UserId";
         private SusViewEngine viewEngine;
 
         public Controller()
@@ -23,7 +23,7 @@ namespace SUS.MvcFramework
 
             var viewContent = System.IO.File.ReadAllText("Views/" + this.GetType().Name.Replace("Controller", string.Empty) + "/" + viewPath + ".cshtml");
 
-            viewContent = this.viewEngine.GetHtml(viewContent, viewModel);
+            viewContent = this.viewEngine.GetHtml(viewContent, viewModel, this.GetUserId());
 
             var responseHtml = this.PutViewInLayout(viewContent, viewModel);
 
@@ -62,11 +62,27 @@ namespace SUS.MvcFramework
             return response;
         }
 
+        protected void SignIn(string userId)
+        {
+            this.Request.Session[UserSessionName] = userId;
+        }
+
+        protected void SignOut()
+        {
+            this.Request.Session[UserSessionName] = null;
+        }
+
+        protected bool IsUserSignedIn() => this.Request.Session.ContainsKey(UserSessionName) 
+                                        && this.Request.Session[UserSessionName] != null;
+
+        protected string GetUserId() => this.Request.Session.ContainsKey(UserSessionName) ? this.Request.Session[UserSessionName] 
+                                                                                          : null;
+
         private string PutViewInLayout(string viewContent, object viewModel = null)
         {
             var layout = System.IO.File.ReadAllText("Views/Shared/_Layout.cshtml");
             layout = layout.Replace("@RenderBody()", "__VIEW_GOES_HERE__");
-            layout = this.viewEngine.GetHtml(layout, viewModel);
+            layout = this.viewEngine.GetHtml(layout, viewModel, this.GetUserId());
             var responseHtml = layout.Replace("__VIEW_GOES_HERE__", viewContent);
 
             return responseHtml;
