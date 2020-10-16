@@ -1,2 +1,2 @@
 # DinyoD-CSharp-SoftUniServer-test
-Test Server for CSharp Web Basics - Sept.2020
+Test-HttpServer and Test-MvcFramework for CSharp Web Basics - Sept.2020
